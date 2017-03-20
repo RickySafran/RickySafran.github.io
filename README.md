@@ -1,14 +1,15 @@
 <p>
-  Hello! My name is Richard Safran, but I go by Ricky.
+  Hello! My name is Richard Safran, but I go by Ricky. I have 2 years of coding experience.
   <br>
-  <b>School:</b> UC Davis B.A. Applied Statistics, B.A. Economics<br>
-  <span style="display:inline-block; width: YOURWIDTH;"></span><font size = '-1'>Expected Graduation: Spring 2017</font><br>
-  <b>Coding Experience:</b> With 2 years of programming experience I am proficient in:
-  <ul>
-    <li>R</li>
-    <li>Python</li>
-    <li>SQL</li>
-  </ul>
+  <h2><b>Education</b></h2>
+    <b>School:</b> UC Davis B.A. Applied Statistics, B.A. Economics<br>
+    <span style="display:inline-block; width: 10;"></span><font size = '-1'>Expected Graduation: Spring 2017</font><br>
+  <h2><b>Proficient Coding Languages:</b></h2>
+    <ul>
+      <li>R (Six upper division statistics courses)</li>
+      <li>Python (1 upper division statistics course)</li>
+      <li>SQL (2 upper division statistics courses</li>
+    </ul>
 </p>
 
 <h2><b>About me</b></h2>
