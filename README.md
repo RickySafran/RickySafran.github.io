@@ -15,7 +15,7 @@ Additionally, I have familiarity with C++.
 I enjoy solving problems, no matter the complexity. I firmly believe that nothing is impossible if you are motivated and know where to look. My friends and colleagues know me as the individual who will not stop until the problem at hand is solved and optimized to the best of my abilities!
 
 <h3><b><u>Past Coding Endeavors</u></b></h3>
-  <h4><u>Python</u></h4>
+  <h6><u>Python</u></h6>
     <ul>
       <li> STA 141B Assignment 1: Constructing Functions</li>
       <li> STA 141B Assignment 2: Image Processing</li>
@@ -26,7 +26,7 @@ I enjoy solving problems, no matter the complexity. I firmly believe that nothin
       <li> STA 141B Final Project: TBD</li>
     </ul>
         
-  <h4><u>R</u></h4>
+  <h6><u>R</u></h6>
     <ul>
       <li> STA 141 Assignment 1: Plotting and Subsetting in R</li>
       <li> More to be added</li>
