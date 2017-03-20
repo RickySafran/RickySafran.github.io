@@ -26,11 +26,6 @@ I enjoy solving problems, no matter the complexity. I firmly believe that nothin
 <h6>R</h6>
   <ul>
     <li> <a href="STA 141 (R)/Assignment 1 (Plotting and Subsetting in R)/HW 1 Complete.html"> STA 141 Assignment 1: Plotting and Subsetting in R</a></li>
-    <li> STA 141B Assignment 1: Constructing Functions</li>
-  </ul>
-<h6>R</h6>
-  <ul>
-    <li> STA 141 Assignment 1: Plotting and Subsetting in R</li>
     <li> More to be added</li>
   </ul>
 
