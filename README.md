@@ -11,7 +11,7 @@ I have 2 years of coding experience.
   </ul>
 Additionally, I have familiarity with C++.
 <h3><b><u>About Me</u></b></h3>
-I enjoy solving problems, no matter the complexity. I firmly believe that nothing is impossible if you are motivated and know where to look. My friends and colleagues know me as the individual who will not stop until the problem at hand is solved and optimized to the best of my abilities!
+I enjoy solving problems, no matter the complexity. I firmly believe that nothing is impossible if you are motivated and know where to look. My friends and colleagues know me as the individual who will not stop until the problem at hand is solved and optimized to the best of my abilities! My data science interests include sports (any sport since I watch them all), healthcare, politics, and the economy.
 <h3><b><u>Past Coding Endeavors</u></b></h3>
 <h6>Python</h6>
   <ul>
