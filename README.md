@@ -21,6 +21,6 @@ Starting fall 2017 I will begin working at the risk management brokerage and con
 
 <h3><b>Contact Information</b></h3>
    <ul>
-      <li>Email: <div style="display: inline; color:#0000FF">rhsafran@ucdavis.edu</div></li>
+      <li>Email: <div style="display: inline">rhsafran@ucdavis.edu</div></li>
       <li>Linkedin:<div style="display: inline"><a href="https://www.linkedin.com/in/richardsafran/"> Richard Safran LinkedIn</a></div></li>
    </ul>
