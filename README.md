@@ -8,9 +8,11 @@ I have 2 years of programing experience. Proficient in:
 <li>SQL</li>
 </ul>
 
-I am a hardworking individual who enjoys solving problems, no matter how complex they become. I firmly believe that nothing is impossible if you are motivated to solve the problem and know where to look. Both my friends and colleagues know me as the individual who will not stop until the problem at hand is solved!
+I am a hardworking individual who enjoys solving problems, no matter how complex they become. I firmly believe that nothing is impossible if you are motivated to solve the problem and know where to look. Both my friends and colleagues know me as the individual who will not stop until the problem at hand is solved and optimized to the best of my abilities!
 
 Starting fall 2017 I will begin working at the Risk Management firm Willis Towers Watson in their Graduate Development Program.
+
+Below you can find links to various projects I have completed using at least one of the languages listed above.
 
 <font size = '+2'>Contact:</font>
 <font size = '+1'>Email:</font> rhsafran@ucdavis.edu 
