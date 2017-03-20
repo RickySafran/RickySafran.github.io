@@ -24,7 +24,7 @@ I enjoy solving problems, no matter the complexity. I firmly believe that nothin
       <li> STA 141B Assignment 5: Data Extraction with Web Scraping</li>
       <li> STA 141B Assignment 6: SQL and mapping packages</li>
       <li> STA 141B Final Project: TBD</li>
-    <ul>
+    </ul>
         
   <h4><u>R</u></h4>
     <ul>
