@@ -1,0 +1,677 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part 1: The Doomsday Algorithm\n",
+    "\n",
+    "The Doomsday algorithm, devised by mathematician J. H. Conway, computes the day of the week any given date fell on. The algorithm is designed to be simple enough to memorize and use for mental calculation.\n",
+    "\n",
+    "__Example.__ With the algorithm, we can compute that July 4, 1776 (the day the United States declared independence from Great Britain) was a Thursday.\n",
+    "\n",
+    "The algorithm is based on the fact that for any year, several dates always fall on the same day of the week, called the <em style=\"color:#F00\">doomsday</em> for the year. These dates include 4/4, 6/6, 8/8, 10/10, and 12/12.\n",
+    "\n",
+    "__Example.__ The doomsday for 2016 is Monday, so in 2016 the dates above all fell on Mondays. The doomsday for 2017 is Tuesday, so in 2017 the dates above will all fall on Tuesdays.\n",
+    "\n",
+    "The doomsday algorithm has three major steps:\n",
+    "\n",
+    "1. Compute the anchor day for the target century.\n",
+    "2. Compute the doomsday for the target year based on the anchor day.\n",
+    "3. Determine the day of week for the target date by counting the number of days to the nearest doomsday.\n",
+    "\n",
+    "Each step is explained in detail below."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### The Anchor Day\n",
+    "\n",
+    "The doomsday for the first year in a century is called the <em style=\"color:#F00\">anchor day</em> for that century. The anchor day is needed to compute the doomsday for any other year in that century. The anchor day for a century $c$ can be computed with the formula:\n",
+    "$$\n",
+    "a = \\bigl( 5 (c \\bmod 4) + 2 \\bigr) \\bmod 7\n",
+    "$$\n",
+    "The result $a$ corresponds to a day of the week, starting with $0$ for Sunday and ending with $6$ for Saturday.\n",
+    "\n",
+    "__Note.__ The modulo operation $(x \\bmod y)$ finds the remainder after dividing $x$ by $y$. For instance, $12 \\bmod 3 = 0$ since the remainder after dividing $12$ by $3$ is $0$. Similarly, $11 \\bmod 7 = 4$, since the remainder after dividing $11$ by $7$ is $4$.\n",
+    "\n",
+    "__Example.__ Suppose the target year is 1954, so the century is $c = 19$. Plugging this into the formula gives\n",
+    "$$a = \\bigl( 5 (19 \\bmod 4) + 2 \\bigr) \\bmod 7 = \\bigl( 5(3) + 2 \\bigr) \\bmod 7 = 3.$$\n",
+    "In other words, the anchor day for 1900-1999 is Wednesday, which is also the doomsday for 1900."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 1.1.__ Write a function that accepts a year as input and computes the anchor day for that year's century. The modulo operator `%` and functions in the `math` module may be useful. Document your function with a docstring and test your function for a few different years.  Do this in a new cell below this one."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "('Wednesday', 'Wednesday', 'Tuesday', 'Sunday')"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def AnchDay(Date):\n",
+    "    \"\"\"\n",
+    "    This function takes in a year from the user. The function transforms the year into the century it is apart of. \n",
+    "    Since Python utilizes integer division I can divide by 100 and the remainder gets dropped. With the found century \n",
+    "    value I then use the doomsday equation to find the anchor day for the century and map the integer to a day as follows:\n",
+    "    0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday\n",
+    "    \"\"\"\n",
+    "    century = Date / 100\n",
+    "    anchor=(5*(century%4)+2)%7\n",
+    "    if anchor == 0:\n",
+    "        return \"Sunday\"\n",
+    "    if anchor == 1:\n",
+    "        return \"Monday\"\n",
+    "    if anchor == 2:\n",
+    "        return \"Tuesday\"\n",
+    "    if anchor == 3:\n",
+    "        return \"Wednesday\"\n",
+    "    if anchor == 4:\n",
+    "        return \"Thursday\"\n",
+    "    if anchor == 5:\n",
+    "        return \"Friday\"\n",
+    "    else:\n",
+    "        return \"Saturday\"\n",
+    "\n",
+    "AnchDay(1954), AnchDay(1912), AnchDay(2017), AnchDay(2100)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### The Doomsday\n",
+    "\n",
+    "Once the anchor day is known, let $y$ be the last two digits of the target year. Then the doomsday for the target year can be computed with the formula:\n",
+    "$$d = \\left(y + \\left\\lfloor\\frac{y}{4}\\right\\rfloor + a\\right) \\bmod 7$$\n",
+    "The result $d$ corresponds to a day of the week.\n",
+    "\n",
+    "__Note.__ The floor operation $\\lfloor x \\rfloor$ rounds $x$ down to the nearest integer. For instance, $\\lfloor 3.1 \\rfloor = 3$ and $\\lfloor 3.8 \\rfloor = 3$.\n",
+    "\n",
+    "__Example.__ Again suppose the target year is 1954. Then the anchor day is $a = 3$, and $y = 54$, so the formula gives\n",
+    "$$\n",
+    "d = \\left(54 + \\left\\lfloor\\frac{54}{4}\\right\\rfloor + 3\\right) \\bmod 7 = (54 + 13 + 3) \\bmod 7 = 0.\n",
+    "$$\n",
+    "Thus the doomsday for 1954 is Sunday."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 1.2.__ Write a function that accepts a year as input and computes the doomsday for that year. Your function may need to call the function you wrote in exercise 1.1. Make sure to document and test your function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "('Monday', 'Tuesday', 'Sunday', 'Thursday', 'Sunday')"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def Doomsday(Year):\n",
+    "    \"\"\" \n",
+    "    This function takes in a year and calculates the doomsday for that year. Function first calculates the century a\n",
+    "    year falls in to determine the anchor day. Next, I find the the last two digits of the year by subtracting the century\n",
+    "    from the year. This ensures that all outliers are accounted for, such as single digit years. Then I used the doomsday\n",
+    "    equation to find the doomsday for the year inside the century. Lastly, I translated the numeric code to the corresponding\n",
+    "    word. I had to remake the formula to 1.1 since I needed universal access to some of the code inside the first function.\n",
+    "    \"\"\"\n",
+    "    century = Year / 100\n",
+    "    anchor = AnchDayNum(century)\n",
+    "    y = Year - century*100\n",
+    "    day = (y+y/4+anchor)%7\n",
+    "    if day == 0:\n",
+    "        return \"Sunday\"\n",
+    "    if day == 1:\n",
+    "        return \"Monday\"\n",
+    "    if day == 2:\n",
+    "        return \"Tuesday\"\n",
+    "    if day == 3:\n",
+    "        return \"Wednesday\"\n",
+    "    if day == 4:\n",
+    "        return \"Thursday\"\n",
+    "    if day == 5:\n",
+    "        return \"Friday\"\n",
+    "    else:\n",
+    "        return \"Saturday\"\n",
+    "\n",
+    "def AnchDayNum(century):\n",
+    "    \"\"\"\n",
+    "    This function finds the anchor day for the century. Century is determined in the main function.\n",
+    "    \"\"\"\n",
+    "    anchor=(5*(century%4)+2)%7\n",
+    "    return anchor\n",
+    "\n",
+    "Doomsday(2016), Doomsday(1995), Doomsday(1954), Doomsday(1850), Doomsday(2100)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### The Day of Week\n",
+    "\n",
+    "The final step in the Doomsday algorithm is to count the number of days between the target date and a nearby doomsday, modulo 7. This gives the day of the week.\n",
+    "\n",
+    "Every month has at least one doomsday:\n",
+    "* (regular years) 1/10, 2/28\n",
+    "* (leap years) 1/11, 2/29\n",
+    "* 3/21, 4/4, 5/9, 6/6, 7/11, 8/8, 9/5, 10/10, 11/7, 12/12\n",
+    "\n",
+    "__Example.__ Suppose we want to find the day of the week for 7/21/1954. The doomsday for 1954 is Sunday, and a nearby doomsday is 7/11. There are 10 days in July between 7/11 and 7/21. Since $10 \\bmod 7 = 3$, the date 7/21/1954 falls 3 days after a Sunday, on a Wednesday."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 1.3.__ Write a function to determine the day of the week for a given day, month, and year. Be careful of leap years! Your function should return a string such as \"Thursday\" rather than a number. As usual, document and test your code."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "('Friday', 'Tuesday', 'Thursday', 'Tuesday')"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def day_finder(Date):\n",
+    "    \"\"\"\n",
+    "    This function take the users input and isolates the year, day, month. After determining if the year is a leap year\n",
+    "    the function then grabs the doomsday in the same month as the given month. Then I find the number of days the given\n",
+    "    date is away from the doomsday date. I then take the doomsday value for the year and add or subtract the difference\n",
+    "    depending on if the given day comes after the doomsday (add) or before the doomsday (subtract). Lastly, I convert the\n",
+    "    found number to the corresponding day of the week.\n",
+    "    \n",
+    "    input date with single quotes in the form 'month/day/year' ie '1/20/2017'\n",
+    "    \"\"\"\n",
+    "    Year = int(Date.split('/')[2])\n",
+    "    Day = int(Date.split('/')[1])\n",
+    "    Month = int(Date.split('/')[0])\n",
+    "    \n",
+    "    \"\"\"find all doomsdays in the given year\"\"\"\n",
+    "    Doomsdays_dates = leap(Year)\n",
+    "    \n",
+    "    \"\"\"Find the relevant doomsday in the month given from the user\"\"\"\n",
+    "    Doomsdays_months = [int(i.split('/')[0]) for i in Doomsdays_dates]\n",
+    "    index_month = Doomsdays_months.index(Month)\n",
+    "    Doomsdays_days = [int(i.split('/')[1]) for i in Doomsdays_dates]  \n",
+    "    Doomsday_Main = Doomsdays_days[index_month]                     \n",
+    "    \n",
+    "    \"\"\"Find the difference in days between the given day and the relevant doomsday\"\"\"\n",
+    "    Difference_Day = abs(Day-Doomsday_Main)\n",
+    "    \n",
+    "    \"\"\"Either subtract or add from the anchor day of that year\"\"\"\n",
+    "    Doomsday_starting_val = Doomsday_num(Year)\n",
+    "    if Day>=Doomsday_Main:\n",
+    "        Day_week_num = (Doomsday_starting_val + Difference_Day)%7\n",
+    "    else:\n",
+    "        Day_week_num = (Doomsday_starting_val - Difference_Day)%7\n",
+    "    \n",
+    "    \"\"\"Assign words to the numeric value\"\"\"    \n",
+    "    if Day_week_num == 0:\n",
+    "        return \"Sunday\"\n",
+    "    if Day_week_num == 1:\n",
+    "        return \"Monday\"\n",
+    "    if Day_week_num == 2:\n",
+    "        return \"Tuesday\"\n",
+    "    if Day_week_num == 3:\n",
+    "        return \"Wednesday\"\n",
+    "    if Day_week_num == 4:\n",
+    "        return \"Thursday\"\n",
+    "    if Day_week_num == 5:\n",
+    "        return \"Friday\"\n",
+    "    else:\n",
+    "        return \"Saturday\"\n",
+    "            \n",
+    "#Leap year methodology\n",
+    "#   If not divisible by 4 than common year\n",
+    "#   If divisible by 4 and not by 100 than leap year\n",
+    "#   If divisible by 4 and 100 than common year\n",
+    "#   If divisible by 400 than leap year    \n",
+    "def leap(Year):\n",
+    "    \"\"\"\n",
+    "    Determines if a given year is a leap year or not. Assigns Doomsdays based on whether a leap year was found.\n",
+    "    \"\"\"\n",
+    "    if Year%400 == 0:\n",
+    "        \"\"\"leap year\"\"\"\n",
+    "        doomsdays = ['1/11/'+str(Year),'2/29/'+str(Year),'3/21/'+str(Year),'4/4/'+str(Year),'5/9/'+str(Year),'6/6/'+str(Year),'7/11/'+str(Year),'8/8/'+str(Year),'9/5/'+str(Year),'10/10/'+str(Year),'11/7/'+str(Year),'12/12/'+str(Year)]\n",
+    "        return doomsdays\n",
+    "    elif Year%4== 0 and Year%100 ==0:\n",
+    "        \"\"\"common year\"\"\"\n",
+    "        doomsdays = ['1/10/'+str(Year),'2/28/'+str(Year),'3/21/'+str(Year),'4/4/'+str(Year),'5/9/'+str(Year),'6/6/'+str(Year),'7/11/'+str(Year),'8/8/'+str(Year),'9/5/'+str(Year),'10/10/'+str(Year),'11/7/'+str(Year),'12/12/'+str(Year)]\n",
+    "        return doomsdays\n",
+    "    elif Year%4 ==0:\n",
+    "        \"\"\"leap year\"\"\"\n",
+    "        doomsdays = ['1/11/'+str(Year),'2/29/'+str(Year),'3/21/'+str(Year),'4/4/'+str(Year),'5/9/'+str(Year),'6/6/'+str(Year),'7/11/'+str(Year),'8/8/'+str(Year),'9/5/'+str(Year),'10/10/'+str(Year),'11/7/'+str(Year),'12/12/'+str(Year)]\n",
+    "        return doomsdays\n",
+    "    else:\n",
+    "        \"\"\"common year\"\"\"\n",
+    "        doomsdays = ['1/10/'+str(Year),'2/28/'+str(Year),'3/21/'+str(Year),'4/4/'+str(Year),'5/9/'+str(Year),'6/6/'+str(Year),'7/11/'+str(Year),'8/8/'+str(Year),'9/5/'+str(Year),'10/10/'+str(Year),'11/7/'+str(Year),'12/12/'+str(Year)]\n",
+    "        return doomsdays\n",
+    "\n",
+    "def Doomsday_num(Year):\n",
+    "    \"\"\"\n",
+    "    Finds the doomsday values based on the given year and the anchor value.\n",
+    "    \"\"\"\n",
+    "    century = Year / 100\n",
+    "    anchor = AnchDayNum(century)\n",
+    "    y = Year - century*100\n",
+    "    day = (y+y/4+anchor)%7\n",
+    "    return day\n",
+    "    \n",
+    "def AnchDayNum(century):\n",
+    "    \"\"\"\n",
+    "    Finds the anchor day value for the century.\n",
+    "    \"\"\"\n",
+    "    anchor=(5*(century%4)+2)%7\n",
+    "    return anchor\n",
+    "\n",
+    "day_finder('9/8/1995'), day_finder('1/1/1850'), day_finder('12/31/2020'), day_finder('2/28/2017')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 1.4.__ How many times did Friday the 13th occur in the years 1900-1999? Does this number seem to be similar to other centuries?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(172, 172, 172, 172, 172, 172, 172)"
+      ]
+     },
+     "execution_count": 20,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def Year_Range(start, end):\n",
+    "    \"\"\" \n",
+    "    This function takes in a start and end year and outputs how many Friday the 13ths occured in that window. Does so \n",
+    "    by generating all the dates in a year that occurred on the 13th. Takes the entire list of markers and sums up the\n",
+    "    values to acquire how many times Friday the 13th has occurred in that time period.\n",
+    "    \"\"\"\n",
+    "    year = range(start,end+1)\n",
+    "    dates_13th = sum(map(lambda year_range: in_year(year_range),year),[])\n",
+    "    markers = map(lambda x: counter(x),dates_13th)\n",
+    "    friday_13th = sum(markers)\n",
+    "    return friday_13th\n",
+    "    \n",
+    "def in_year(year):\n",
+    "    \"\"\"\n",
+    "    Generates all the months in the given window and returns all the date combinations where the day was the 13th for\n",
+    "    every month in that year range.\n",
+    "    \"\"\"\n",
+    "    month = range(1,13)\n",
+    "    return map(lambda month_key: str(month_key)+'/13/'+str(year),month)\n",
+    "    \n",
+    "def counter(date):\n",
+    "    \"\"\"\n",
+    "    Checks to see if the date was on a Friday. If it was the function marks the index with a one.\n",
+    "    \"\"\"\n",
+    "    count = 0\n",
+    "    if day_finder(date) == 'Friday':\n",
+    "        count += 1\n",
+    "    return count\n",
+    "Year_Range(1900,1999), Year_Range(2000,2099), Year_Range(1800,1899), Year_Range(1700,1799), Year_Range(1600,1699), Year_Range(1500,1599), Year_Range(1400,1499) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 1.5.__ How many times did Friday the 13th occur between the year 2000 and today?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "30"
+      ]
+     },
+     "execution_count": 24,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Can utilize function from 1D up to 2016 and since there were was a Friday thr 13th in January I added 1 to the output.\n",
+    "Year_Range(2000,2016)+1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "30"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Alternatively:\n",
+    "def Date_Range(start, end_date):\n",
+    "    \"\"\"\n",
+    "    Same function as 1D however take in a date for the second value. To compensate I created a new function that checks\n",
+    "    to see if the current month has had a friday the 13th. If not then the date is not included.\n",
+    "    \"\"\"\n",
+    "    Year = int(end_date.split('/')[2])\n",
+    "    Day = int(end_date.split('/')[1])\n",
+    "    Month = int(end_date.split('/')[0])\n",
+    "    \n",
+    "    prior_year_range = range(start,Year)\n",
+    "    dates_13tha = sum(map(lambda year_range: in_year(year_range), prior_year_range),[])  \n",
+    "    dates_13thb = current_year(Month, Day, Year)\n",
+    "    dates_13th = dates_13tha + dates_13thb\n",
+    "    friday_13th = sum(map(lambda x: counter(x),dates_13th))\n",
+    "    return friday_13th\n",
+    "\n",
+    "def current_year(Month, Day, Year):\n",
+    "    \"\"\"\n",
+    "    Checks to see if the date has occurred in the given month. If it has then include the month's 13th and if not then\n",
+    "    the function excludes that month's 13th. Results in allowing incomplete years.\n",
+    "    \"\"\"\n",
+    "    if Day<13:\n",
+    "        month_num = Month - 1\n",
+    "    else:\n",
+    "        month_num = Month\n",
+    "    input_month = range(1,month_num+1)\n",
+    "    return map(lambda month_key: str(month_key)+'/13/'+str(Year),input_month)\n",
+    "Date_Range(2000,'1/22/2017')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Part 2: 1978 Birthdays\n",
+    "\n",
+    "__Exercise 2.1.__ The file `birthdays.txt` contains the number of births in the United States for each day in 1978. Inspect the file to determine the format. Note that columns are separated by the tab character, which can be entered in Python as `\\t`. Write a function that uses iterators and list comprehensions with the string methods `split()` and `strip()` to  convert each line of data to the list format\n",
+    "\n",
+    "```Python\n",
+    "[month, day, year, count]\n",
+    "```\n",
+    "The elements of this list should be integers, not strings. The function `read_birthdays` provided below will help you load the file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "/Users/Ricky/Desktop/STA 141b/Data\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "[[1, 2, 78, 7527],\n",
+       " [1, 3, 78, 8825],\n",
+       " [1, 4, 78, 8859],\n",
+       " [1, 5, 78, 9043],\n",
+       " [1, 6, 78, 9208]]"
+      ]
+     },
+     "execution_count": 27,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def read_birthdays(file_path):\n",
+    "    \"\"\"Read the contents of the birthdays file into a string.\n",
+    "    \n",
+    "    Arguments:\n",
+    "        file_path (string): The path to the birthdays file.\n",
+    "        \n",
+    "    Returns:\n",
+    "        string: The contents of the birthdays file.\n",
+    "    \"\"\"\n",
+    "    with open(file_path) as file:\n",
+    "        return file.read()\n",
+    " \n",
+    "import os;\n",
+    "print os.getcwd();\n",
+    "os.chdir('/Users/Ricky/Desktop/STA 141b/Data')\n",
+    "\n",
+    "birthdays_raw=read_birthdays(\"birthdays.txt\")\n",
+    "\n",
+    "def getBirthdata(data):\n",
+    "    separate_data=data.strip(\"\\n\").split(\"\\n\")\n",
+    "    isolate_values=[x.split('\\t') for x in separate_data]\n",
+    "    dataset=[y for y in [z for z in isolate_values if len(z)==2] if len(y[1])>0]\n",
+    "    important_info=[list(map(int,z)) for z in [w[0].split('/') for w in dataset]]\n",
+    "    [important_info[q].append(int(dataset[q][1])) for q in range(len(important_info))]\n",
+    "    return(important_info)\n",
+    "birthdays=getBirthdata(birthdays_raw)\n",
+    "birthdays[1:6]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 2.2.__ Which month had the most births in 1978? Which day of the week had the most births? Which day of the week had the fewest? What conclusions can you draw? You may find the `Counter` class in the `collections` module useful."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "([8, 302795],\n",
+       " [270695,\n",
+       "  249875,\n",
+       "  276584,\n",
+       "  254577,\n",
+       "  270812,\n",
+       "  270756,\n",
+       "  294701,\n",
+       "  302795,\n",
+       "  293891,\n",
+       "  288955,\n",
+       "  274671,\n",
+       "  284927])"
+      ]
+     },
+     "execution_count": 41,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#Look at counts for babies born in each month by summing all the counts for each month. After take index of max year\n",
+    "#to determine which year has the most babies born within.\n",
+    "baby_counts = [sum([birthdays[y][3] for y in range(len(birthdays)) if [birthdays[x][0] for x in range(len(birthdays))][y] == z]) for z in range(1,13)]\n",
+    "month_pos = baby_counts.index(max(baby_counts))+1\n",
+    "[month_pos, baby_counts[7]], baby_counts"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "([2, 487309],\n",
+       " [0, 432085],\n",
+       " [421400, 487309, 504858, 493897, 493149, 500541, 432085])"
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "baby_counts = [sum([birthdays[y][3] for y in range(len(birthdays)) if [birthdays[x][0] for x in range(len(birthdays))][y] == z]) for z in range(1,13)]\n",
+    "month_pos = baby_counts.index(max(baby_counts))+1\n",
+    "\n",
+    "#Attach day on to data by examining the first day in the year. Check with last day in the year.\n",
+    "day_finder('1/1/1978'), day_finder('12/31/1978')\n",
+    "day_of_week = 6\n",
+    "count = 0\n",
+    "dow = []\n",
+    "while count < len(birthdays):\n",
+    "    \"\"\"\n",
+    "    Use the first day of the year to calculate the rest of the days in the year. This works since the days follow a \n",
+    "    predictable pattern. This also means the computer performs less steps than solving my function above.\n",
+    "    \"\"\"\n",
+    "    temp = (day_of_week+1)%7\n",
+    "    day_of_week = temp\n",
+    "    count += 1\n",
+    "    dow += str(temp)\n",
+    "\n",
+    "def Birthdata_dow(data):\n",
+    "    \"\"\"\n",
+    "    Attach year on to the data list.\n",
+    "    \"\"\"\n",
+    "    separate_data=data.strip(\"\\n\").split(\"\\n\")\n",
+    "    isolate_values=[x.split('\\t') for x in separate_data]\n",
+    "    dataset=[y for y in [z for z in isolate_values if len(z)==2] if len(y[1])>0]\n",
+    "    important_info=[list(map(int,z)) for z in [w[0].split('/') for w in dataset]]\n",
+    "    [important_info[q].append(int(dataset[q][1])) for q in range(len(important_info))] \n",
+    "    [important_info[s].append(int(dow[s])) for s in range(len(important_info))]\n",
+    "    return(important_info)\n",
+    "birthdays_dow=Birthdata_dow(birthdays_raw)   \n",
+    "\n",
+    "#Day with the most births \n",
+    "baby_counts_dow = [sum([birthdays_dow[y][3] for y in range(len(birthdays_dow)) if [birthdays_dow[x][4] for x in range(len(birthdays_dow))][y] == z]) for z in range(0,7)]\n",
+    "day_pos_max = baby_counts_dow.index(max(baby_counts_dow))\n",
+    "\n",
+    "#Day with the least births\n",
+    "day_pos_min = baby_counts_dow.index(min(baby_counts_dow))\n",
+    "[day_pos_max, baby_counts_dow[1]], [day_pos_min,baby_counts_dow[6]], baby_counts_dow"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Based on these findings we can not make any conclusions without conducting further statistical analysis. However, we can begin to see a trends in the data that may or may not be significant. For instance, examining the month of births it is apparent that more births happen in the later half of the year compared to the beginning half of the year. This is particularly present in the fall months consisting of July-October. Looking at the day of the week of births there does not appear to be a distinguishable relationship between days of the week. The only interesting elements of this distribution are Saturday and Sunday having about 60,000 less births than the other days. This could possibly be related to hospitals having less doctors, patients being more likely to be on vacation, something to do with internal stress levels of the parents, or random chance. However, we would need to conduct a controlled experiment or observational studies to draw further conclusions."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "__Exercise 2.3.__ What would be an effective way to present the information in exercise 2.2? You don't need to write any code for this exercise, just discuss what you would do."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In order to highlight my research I would utilize graphs. One graph would be a bar graph that contained month on the x axis and count on the y axis. This would reveal the trend in babies being born in an easy to view manner. Similarily, I would have another bar graph that contained the day of the week on the x axis and count on the y axis. Additionally, you could combine these two graphs and show the amount of babies born on each day of the week for each month or vice versa. Ultimately, my graphs would highlight a key idea I was trying to cover so that the person I was presenting to would have a good understanding of the dataset. Another potential consideration would be grouping certain groups together and then taking the avg of the group and graphing these points. The end result of all of these considerations would be to provide a net worth to society and/or the funders. Potential examples of interesting studies would consist of weekends vs weekdays, seasonality with the months, temperature with brith months, and whatever the person who funded the research was interested in."
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
