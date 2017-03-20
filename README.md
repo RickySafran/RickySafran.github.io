@@ -15,17 +15,17 @@ I enjoy solving problems, no matter the complexity. I firmly believe that nothin
 <h3><b><u>Past Coding Endeavors</u></b></h3>
 <h6>Python</h6>
   <ul>
+    <li> <a href="STA 141B (Python)/Final Project-Undergraduate Data Sceince Project.html"> STA 141B Final Undergraduate Data Science Project</a></li>
     <li> <a href="STA 141B (Python)/HW 1 (Constructing Doomsday Algorithm).html"> STA 141B Assignment 1: Constructing Functions</a></li>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 2: Image Processing</a></li>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 3: Data Extraction with CSV</a></li>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 4: Data Extraction with Web API</a></li>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 5: Data Extraction with Web Scraping</a></li>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 6: SQL and mapping packages</a></li>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Final Project: TBD</a></li>
+    <li> <a href="STA 141B (Python)/HW 2 (Image Processing).html"> STA 141B Assignment 2: Image Processing</a></li>
+    <li> <a href="STA 141B (Python)/HW 3 (Extracting Data Through CSV).html"> STA 141B Assignment 3: Data Extraction with CSV</a></li>
+    <li> <a href="STA 141B (Python)/HW 4 (Extracting Data Through Web API using Json).html"> STA 141B Assignment 4: Data Extraction with Web API</a></li>
+    <li> <a href="STA 141B (Python)/HW 5 (Extracting Data Trhough HTML Web Scraping).html.html"> STA 141B Assignment 5: Data Extraction with Web Scraping</a></li>
+    <li> <a href="STA 141B (Python)/HW 6 (SQL and Mapping Analysis).html"> STA 141B Assignment 6: SQL and mapping packages</a></li> 
   </ul>
 <h6>R</h6>
   <ul>
-    <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141 Assignment 1: Plotting and Subsetting in R</a></li>
+    <li> <a href="STA 141 (R)/Assignment 1 (Plotting and Subsetting in R)/HW 1 Complete.html"> STA 141 Assignment 1: Plotting and Subsetting in R</a></li>
     <li> STA 141B Assignment 1: Constructing Functions</li>
   </ul>
 <h6>R</h6>
