@@ -17,6 +17,7 @@ I enjoy solving problems, no matter the complexity. I firmly believe that nothin
 <h3><b><u>Past Coding Endeavors</u></b></h3>
 <h6>Python</h6>
   <ul>
+<<<<<<< HEAD
     <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 1: Constructing Functions</a></li>
     <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 2: Image Processing</a></li>
     <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141B Assignment 3: Data Extraction with CSV</a></li>
@@ -28,11 +29,28 @@ I enjoy solving problems, no matter the complexity. I firmly believe that nothin
 <h6>R</h6>
   <ul>
     <li> <a href="https://www.linkedin.com/in/richardsafran/"> STA 141 Assignment 1: Plotting and Subsetting in R</a></li>
+=======
+    <li> STA 141B Assignment 1: Constructing Functions</li>
+    <li> STA 141B Assignment 2: Image Processing</li>
+    <li> STA 141B Assignment 3: Data Extraction with CSV</li>
+    <li> STA 141B Assignment 4: Data Extraction with Web API</li>
+    <li> STA 141B Assignment 5: Data Extraction with Web Scraping</li>
+    <li> STA 141B Assignment 6: SQL and mapping packages</li>
+    <li> STA 141B Final Project: TBD</li>
+  </ul>
+<h6>R</h6>
+  <ul>
+    <li> STA 141 Assignment 1: Plotting and Subsetting in R</li>
+>>>>>>> origin/master
     <li> More to be added</li>
   </ul>
 
 <h3><b><u>Future Employment</u></b></h3>
+<<<<<<< HEAD
 Starting fall 2017 I will begin working at the risk management brokerage and consultancy firm Willis Towers Watson in their Graduate Development Program.
+=======
+Starting fall 2017 I will begin working at the risk management brokerage and consultantcy firm Willis Towers Watson in their Graduate Development Program.
+>>>>>>> origin/master
 
 <h3><b><u>Contact Information</u></b></h3>
    <ul>
